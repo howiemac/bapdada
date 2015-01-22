@@ -1,0 +1,4 @@
+#echo starting serve ...
+./stop ; ./start && tail -f ../logs/twistd.log
+
+

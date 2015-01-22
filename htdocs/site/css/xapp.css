@@ -1,0 +1,41 @@
+@import "base/default.css";
+@import "base/layout.css";
+@import "base/lytebox.css";
+@import "theme/theme.css";
+
+body {
+color: #000
+}
+
+b {
+font-weight:normal;
+/*text-decoration:underline;*/
+font-style:italic;
+}
+
+i {
+color: #555;
+}
+
+#logo{
+float:right;
+}
+
+#logo img{
+float:right;
+/*width:180px;*/
+padding-bottom:40px;
+/*height:64px;
+padding:20px;*/
+}
+
+#tagline {
+float:none;
+padding:0;
+color: #999;
+}
+
+#avatar_header {
+border:none;
+background-color:#FFF;
+}

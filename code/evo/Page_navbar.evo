@@ -1,0 +1,23 @@
+# navigation links - for override in app
+div:id="navbar"
+  div:
+#    a:"subscribe",href="http://feedburner.google.com/fb/a/mailverify?uri=deepian", title="get email alerts for new posts", target="_blank" 
+#    " - "
+    home=self.get(1)
+    a: home.name, href=home.url(), title=home.name
+    " - "
+    a:"additions",href=home.url("latest"), title="recent additions" 
+    " - "
+    a:"on twitter", href="https://twitter.com/bapdadainfo" , target="_blank" , title="@bapdadainfo"
+#    a:'other links',href=req.user.abs_url('links'), title='external links'
+  br:  
+  div:
+  #for res in req.user.Page.list(asObjects=False,what="distinct year(`when`) as year",where="`when`<>19600101 and `when`<>19500101",orderby="`when` desc"):   
+  for res in self.list(asObjects=False,what="distinct year(`when`) as year",stage='posted',orderby="`when`"):
+    year=str(res["year"])
+    a: year, href=home.url("view?year=%s&limit=" % year), title="BapDada "+year 
+  #  "-"
+  #  a:"1960's",href=home.url("view?date=19600101&limit="), title="BapDada 1960's undated" 
+  #  a:"1960's",href=home.get(766).url() , title="BapDada 1960's undated"
+  #  a:"1950's",href=home.url("view?date=19500101&limit="), title="BapDada 1950's undated" 
+  #  a:"1950's",href=home.get(764).url(), title="BapDada 1950's undated" 
