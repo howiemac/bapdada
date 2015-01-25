@@ -18,8 +18,10 @@ from calendar import month_name
 class Page(basePage):
 
   def post(self,req):                                                                                                                      
-    """fix date and format when posting a draft"""
-    if self.kind!='episode': #safety valve
+    """fix date and format when posting a draft
+       - overrides base post()
+    """
+    if self.kind!='page': #safety valve
       return basePage.post(self,req)
     if basePage._posted(self,req):  
       self.fix_bapdada_date(req)
@@ -31,12 +33,21 @@ class Page(basePage):
   post.permit='create page'
 
   def latest(self, req):    
+    "override base version"
     req.pages=self._latest(req,order="uid desc")
     req.title="additions"
     req.prep="to"
     req.page='latest' # for paging
     return self.listing(req)
 
+  def get_navbar_links(self):
+    "override base version"
+    home=self.get(1)
+    return (
+     ("bapdada.info",home.url(),"home"),
+     ("additions",home.url("latest"),"latest additions"),
+     ("at twitter","http://twitter.com/bapdadainfo/","@bapdadainfo"),
+    )
 
 ################# temporary import/fix routines for setting up text versioning #####################
 
