@@ -1,0 +1,8 @@
+- links => page 2 text
+- put live (same process as deepian)
+  - git commit & push / pull onto new server
+  - re-copy data from thinkpad
+  - dump database from thinkpad  &  load onto new server
+  - test
+  - put live (switch domain)
+

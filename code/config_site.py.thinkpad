@@ -1,0 +1,20 @@
+"""
+config file for site specific items, eg database, port
+THIS SHOULD NOT BE STORED IN THE REPOSITORY
+
+"""
+
+port='8084'  # default is 8080
+#database='???' # default is app folder name
+
+#domains=["127.0.0.1"] #use this for local testing
+#domains=["bapdada.info","www.bapdada.info","bapdada.deepian.com"] #use this for live site
+
+
+domains=["bapdada"]
+#domains=["localhost"] #use this for local testing
+
+
+#mailfrom= 'admin@deepian.com' #email from address
+
+

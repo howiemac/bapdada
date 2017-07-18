@@ -17,7 +17,7 @@ from calendar import month_name
 
 class Page(basePage):
 
-  def post(self,req):                                                                                                                      
+  def post(self,req):
     """fix date and format when posting a draft
        - overrides base post()
     """
@@ -25,9 +25,9 @@ class Page(basePage):
       return basePage.post(self,req)
     if basePage._posted(self,req):  
       self.fix_bapdada_date(req)
-      self.reform_text(req)
-      if not req.warning:
-	req.warning='comments reformed'
+#      self.reform_text(req)
+#      if not req.warning:
+#        req.warning='comments reformed'
       self.flush()
     return self.view(req)
   post.permit='create page'
@@ -46,8 +46,17 @@ class Page(basePage):
     return (
      ("bapdada.info",home.url(),"home"),
      ("additions",home.url("latest"),"latest additions"),
-     ("at twitter","http://twitter.com/bapdadainfo/","@bapdadainfo"),
+     ("at twitter","http://twitter.com/bapdadainfo","@bapdadainfo"),
     )
+
+
+################# publishing (test) ####################
+
+  def publish(self,req):
+    "publish site to flat files"
+    pass
+
+
 
 ################# temporary import/fix routines for setting up text versioning #####################
 
@@ -105,50 +114,50 @@ class Page(basePage):
 
   _fifties=(764,) # children of this require special date handling
 
-  comment_rule=re.compile(r'(\()(.*?)(\))')
-
-  def reform_text(self,req,bolden=False):
-    "fix italics and bold to be consistent with trance messages"
+#  comment_rule=re.compile(r'(\()(.*?)(\))')
+#
+#  def reform_text(self,req,bolden=False):
+#    "fix italics and bold to be consistent with trance messages"
+#  
+#    def italicise(match):
+#      ""
+#      source=match.groups()[1].strip()
+#      return " ~ ("+source+") ~ "
   
-    def italicise(match):
-      ""
-      source=match.groups()[1].strip()
-      return " ~ ("+source+") ~ "
-  
-    if self.kind=='episode':
-      if (self.name.find("trance")>0):
-        req.warning="trance message - reform skipped"
-      elif (bolden and (self.text.find("^")>=0)) or (self.text.find(" ~ (")>=0):
-        req.warning="reformed already - skipped"
-      else:
-        if bolden:
-          self.text=self.text.replace("~","^")  #make italic words bold
-        self.text=self.comment_rule.sub(italicise,self.text)
-        self.flush() #store changes
-  reform_text.permit='dummy' 
+#    if self.kind=='episode':
+#      if (self.name.find("trance")>0):
+#        req.warning="trance message - reform skipped"
+#      elif (bolden and (self.text.find("^")>=0)) or (self.text.find(" ~ (")>=0):
+#        req.warning="reformed already - skipped"
+#      else:
+#        if bolden:
+#          self.text=self.text.replace("~","^")  #make italic words bold
+#        self.text=self.comment_rule.sub(italicise,self.text)
+#        self.flush() #store changes
+#  reform_text.permit='dummy' 
 
-  def reform(self,req):
-    "make text between ( ) italic"
-    self.reform_text(req,bolden=False)
-    req.message="comments reformed"
-    return self.view(req) 
-  reform.permit='admin page' 
+#  def reform(self,req):
+#    "make text between ( ) italic"
+#    self.reform_text(req,bolden=False)
+#    req.message="comments reformed"
+#    return self.view(req) 
+#  reform.permit='admin page' 
 
-  def reform_all(self,req):
-    "fix italics and bold etc for every episode"
-    murlis=self.list(kind='episode',where='(name like "avyakt bapdada %") or (name like "sakar bapdada %")')
-    c=0
-    s=0
-    for i in murlis:
-      i.reform_text(req)
-      if req.warning:
-        s+=1 
-        req.warning=''
-      else:
-        c+=1
-    req.message=" %s reformed, %s skipped" % (c,s)     
-    return self.get(1).view(req) 
-  reform_all.permit='admin page' 
+#  def reform_all(self,req):
+#    "fix italics and bold etc for every episode"
+#    murlis=self.list(kind='episode',where='(name like "avyakt bapdada %") or (name like "sakar bapdada %")')
+#    c=0
+#    s=0
+#    for i in murlis:
+#      i.reform_text(req)
+#      if req.warning:
+#        s+=1 
+#        req.warning=''
+#      else:
+#        c+=1
+#    req.message=" %s reformed, %s skipped" % (c,s)     
+#    return self.get(1).view(req) 
+#  reform_all.permit='admin page' 
 
   def fix_bapdada_date(self,req):
     ""

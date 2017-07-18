@@ -2,7 +2,7 @@
 div:cls="text-center"
   #for res in req.user.Page.list(asObjects=False,what="distinct year(`when`) as year",where="`when`<>19600101 and `when`<>19500101",orderby="`when` desc"):   
   home=self.get(1)
-  for res in self.list(asObjects=False,what="distinct year(`when`) as year",stage='posted',orderby="`when`"):
+  for res in self.list(asObjects=False,what="distinct year(`when`) as year",stage='posted',orderby='year'):
     year=str(res["year"])
     a: year, href=home.url("view?year=%s&limit=" % year), title="BapDada "+year 
   #  "-"
