@@ -10,7 +10,7 @@ from base.data import execute
 
 import os, string
 
-import urllib,re 
+import urllib.request, urllib.parse, urllib.error,re 
 
 from calendar import month_name 
 
@@ -40,11 +40,22 @@ class Page(basePage):
     req.page='latest' # for paging
     return self.listing(req)
 
+  def favourites(self,req):
+    "top rated pages, in date order"
+    lim=page(req,50)
+    req.pages=self.list(kind="page",stage="posted",rating=2,orderby="`when`",limit=lim)
+    req.title="favourites"
+    req.prep="from"
+    req.page='favourites' # for paging
+    return self.listing(req)
+    
+
   def get_navbar_links(self):
     "override base version"
     home=self.get(1)
     return (
-     ("bapdada.info",home.url(),"home"),
+     ("home",home.url(),"home"),
+     ("favourites",home.url("favourites"),"deepian's favourite murlis"),
      ("additions",home.url("latest"),"latest additions"),
      ("at twitter","http://twitter.com/bapdadainfo","@bapdadainfo"),
     )
@@ -86,7 +97,7 @@ class Page(basePage):
 "120809",
 "120822",
 ):
-      print "processing bapdada"+source
+      print("processing bapdada"+source)
       c=0
       for i in all:
         res=execute("select name,text from bapdada%s.pages where uid=%s" % (source,i.uid))
@@ -106,7 +117,7 @@ class Page(basePage):
             text="%s\n##\n\n%s" % (n,t)
             self.Text.create(page=i.uid,text=text,when=int("20"+source))
             c+=1
-      print '%s texts added' % c
+      print('%s texts added' % c)
       xsource=source
     return "DONE"
 
