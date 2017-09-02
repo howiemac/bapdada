@@ -1,2 +1,2 @@
 # bapdada
-Avyakt Bapdada site app
+EVOKE app for Avyakt Bapdada teachings

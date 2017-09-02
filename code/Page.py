@@ -1,12 +1,12 @@
 """
-override class for base.page
+override class for evoke.page
 
 """
-from base.render import html
-from base.lib import *
-from base.Page import Page as basePage
+from evoke.render import html
+from evoke.lib import *
+from evoke.Page import Page as basePage
 
-from base.data import execute
+from evoke.data import execute
 
 import os, string
 
@@ -19,7 +19,7 @@ class Page(basePage):
 
   def post(self,req):
     """fix date and format when posting a draft
-       - overrides base post()
+       - overrides evoke post()
     """
     if self.kind!='page': #safety valve
       return basePage.post(self,req)
@@ -33,7 +33,7 @@ class Page(basePage):
   post.permit='create page'
 
   def latest(self, req):    
-    "override base version"
+    "override evoke version"
     req.pages=self._latest(req,order="uid desc")
     req.title="additions"
     req.prep="to"
@@ -51,7 +51,7 @@ class Page(basePage):
     
 
   def get_navbar_links(self):
-    "override base version"
+    "override evoke version"
     home=self.get(1)
     return (
      ("home",home.url(),"home"),
@@ -71,7 +71,7 @@ class Page(basePage):
 
 ################# temporary import/fix routines for setting up text versioning #####################
 
-  from base.data import execute
+  from evoke.data import execute
 
   @classmethod
   def entrail(self,req):

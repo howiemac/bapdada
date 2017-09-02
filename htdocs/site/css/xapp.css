@@ -1,6 +1,6 @@
-@import "base/default.css";
-@import "base/layout.css";
-@import "base/lytebox.css";
+@import "evoke/default.css";
+@import "evoke/layout.css";
+@import "evoke/lytebox.css";
 @import "theme/theme.css";
 
 body {
